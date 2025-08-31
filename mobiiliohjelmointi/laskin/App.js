@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,TextInput, Pressable} from 'react-native';
+import { StyleSheet, Text, View,TextInput, Pressable, FlatList} from 'react-native';
 import { useState } from "react";
 
 export default function App() {
@@ -7,6 +7,7 @@ export default function App() {
   const [luku1, setLuku1] = useState('');
   const [luku2, setLuku2] = useState('');
   const [tulos, setTulos] = useState('');
+  const [historia, setHistoria] = useState([]);
 
   const PlusNappi = () => {
     return (
@@ -24,6 +25,7 @@ export default function App() {
     };
   const LaskeYhteen = () => {
     setTulos(Number(luku1) + Number(luku2))
+    setHistoria([...historia, {key:  `${luku1} + ${luku2} = ${Number(luku1) + Number(luku2)}`}])
   };
 
   const MiinusNappi = () => {
@@ -42,6 +44,7 @@ export default function App() {
     };
   const LaskeVahennys = () => {
     setTulos(Number(luku1) - Number(luku2))
+    setHistoria([...historia, {key:  `${luku1} - ${luku2} = ${Number(luku1) - Number(luku2)}`}])
   };
   
 
@@ -60,6 +63,11 @@ export default function App() {
       <PlusNappi/>
       <MiinusNappi/>
     </View>
+      <Text style={{fontSize:20, marginTop: 20}}>History</Text>
+      <FlatList 
+      data={historia}
+      renderItem={({item}) => <Text>{item.key}</Text>}
+      />
     </View>
   );
 };
@@ -70,7 +78,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 60,
   },
   textInput: {
     backgroundColor: '#DCDCDC',
@@ -81,16 +90,16 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   button: {
-    padding: 10,
+    padding: 5,
     borderRadius: 5,
-    marginTop: 15,
-    width: '40%',
+    marginTop: 30,
+    width: '30%',
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 20,
     
   },
  
